@@ -38,7 +38,7 @@
             - name: Performing a package upgrade
               shell:
                 cmd: dnf upgrade -y --releasever=8.10 # <-- แก้ไขบรรทัดนี้
-              when: cmd_result.stdout | trim | int > 0 # <-- แก้ไขบรรทัดนี้
+              when: rhel810_repo_check.rc == 0 # <-- แก้ไขบรรทัดนี้
 
         - name: Check the settings of the google-chrome repository
           shell:
@@ -60,7 +60,7 @@
         - name: Check kernel version
           shell:
             cmd: uname -r
-          register: cmd_result
+          register: kernel_check_res # <-- แก้ไขบรรทัดนี้
           failed_when: "'4.18.0-553.el8_10.x86_64' not in cmd_result.stdout"
 
         - name: Checking the RHEL release version
