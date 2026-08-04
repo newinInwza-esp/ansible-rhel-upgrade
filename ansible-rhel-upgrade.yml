@@ -13,7 +13,7 @@
           shell:
             cmd: dnf repolist all | grep -i google-chrome | grep -i enable
           register: result
-          #failed_when: result.rc not in [0, 1]   # <-- ใส่กั้น rc: 1 เวลาหา Chrome ไม่เจอ
+          failed_when: result.rc not in [0, 1]   # <-- เปิดใช้งาน (ปลด # ออก) กันพังเวลาหา Chrome ไม่เจอ
 
         - name: Disable the google-chrome repository
           shell:
@@ -25,10 +25,10 @@
         - name: Checking the status of the repository for RHEL810
           shell:
             cmd: dnf repolist all | grep -e RHEL810-media-update-appstream -e RHEL810-media-update-baseos -e RHEL810-rpm | grep -i enable | wc -l
-          register: cmd_result
+          register: rhel810_repo_check           # <-- 1. แก้เป็น rhel810_repo_check เพื่อให้ตรงกับ when ด้านล่าง
 
         - name: If the repository for RHEL810 is enabled, perform the upgrade process.
-          block:                                 
+          block:                                  
             - name: Check for available updates in the installed package
               shell:
                 cmd: dnf check-update
@@ -38,7 +38,7 @@
             - name: Performing a package upgrade
               shell:
                 cmd: dnf upgrade -y --releasever=8.10 # <-- แก้ไขบรรทัดนี้
-              when: rhel810_repo_check.rc == 0 # <-- แก้ไขบรรทัดนี้
+              when: rhel810_repo_check.stdout | trim | int > 0 # <-- 2. แก้เงื่อนไขให้เช็กเลขจำนวน Repo จาก wc -l
 
         - name: Check the settings of the google-chrome repository
           shell:
@@ -61,7 +61,7 @@
           shell:
             cmd: uname -r
           register: kernel_check_res # <-- แก้ไขบรรทัดนี้
-          failed_when: "'4.18.0-553.el8_10.x86_64' not in cmd_result.stdout"
+          failed_when: "'4.18.0-553.el8_10.x86_64' not in kernel_check_res.stdout" # <-- 3. แก้ cmd_result เป็น kernel_check_res
 
         - name: Checking the RHEL release version
           shell:
