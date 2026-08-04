@@ -38,8 +38,8 @@
             - name: Performing a package upgrade
               shell:
                 cmd: dnf upgrade -y --releasever=8.10 # <-- แก้ไขบรรทัดนี้
-              when: rhel810_repo_check.stdout | trim | int > 0 # <-- 2. แก้เงื่อนไขให้เช็กเลขจำนวน Repo จาก wc -l
-
+              when: rhel810_repo_check.stdout | trim | int > 0 # <-- แก้ไขบรรทัดนี้
+              
         - name: Check the settings of the google-chrome repository
           shell:
             cmd: dnf repolist all | grep -i google-chrome | grep -i enable
