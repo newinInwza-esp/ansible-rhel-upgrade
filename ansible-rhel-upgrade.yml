@@ -24,7 +24,7 @@
 
         - name: Checking the status of the repository for RHEL810
           shell:
-            cmd: dnf repolist all | grep -e RHEL810-media-update-appstream -e RHEL810-media-update-baseos -e RHEL810-rpm | grep -i enable | wc -l
+            cmd: echo $(dnf repolist all | grep -e RHEL810-media-update-appstream -e RHEL810-media-update-baseos -e RHEL810-rpm | grep -i enable | wc -l)
           register: rhel810_repo_check           # <-- 1. แก้เป็น rhel810_repo_check เพื่อให้ตรงกับ when ด้านล่าง
 
         - name: If the repository for RHEL810 is enabled, perform the upgrade process.
