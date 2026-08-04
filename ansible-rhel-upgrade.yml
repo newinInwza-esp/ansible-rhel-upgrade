@@ -44,7 +44,7 @@
           shell:
             cmd: dnf repolist all | grep -i google-chrome | grep -i enable
           register: result
-         # failed_when: result.rc not in [0, 1]   # <-- ใส่กั้น rc: 1 เวลาหา Chrome ไม่เจอ
+          failed_when: result.rc not in [0, 1]   # <-- ใส่กั้น rc: 1 เวลาหา Chrome ไม่เจอ
 
         - name: Enable the google-chrome repository
           shell:
