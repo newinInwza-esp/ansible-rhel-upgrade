@@ -1,7 +1,6 @@
 ---
 - hosts: all
   become: true
-  gather_facts: false    # <-- เพิ่มบรรทัดนี้ลงไปเพื่อข้ามการเช็ก Python Facts
   tasks:
     - name: Checking the RHEL release version
       shell:
