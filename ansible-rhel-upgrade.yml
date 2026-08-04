@@ -27,7 +27,7 @@
           register: cmd_result
 
         - name: If the repository for RHEL810 is enabled, perform the upgrade process.
-block:
+        block:
             - name: Check for available updates in the installed package
               shell:
                 cmd: dnf check-update
