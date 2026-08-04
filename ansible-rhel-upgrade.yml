@@ -32,7 +32,7 @@
               shell:
                 cmd: dnf check-update
               register: result
-              failed_when: result.rc not in [0, 100]  # <-- แก้เป็นบรรทัดนี้ครับ (ยอมรับทั้ง 0 และ 100)
+              when: cmd_result.stdout | trim | int > 0   # <-- เปลี่ยนบรรทัดนี้
 
             - name: Performing a package upgrade
               dnf:
