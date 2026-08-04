@@ -31,7 +31,7 @@
             - name: Check for available updates in the installed package
               shell:
                 cmd: dnf check-update
-              register: result
+              cmd: dnf upgrade -y --releasever=8.10 # <-- เปลี่ยนบรรทัดนี้
               when: cmd_result.stdout | trim | int > 0   # <-- เปลี่ยนบรรทัดนี้
 
             - name: Performing a package upgrade
