@@ -1,0 +1,74 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Checking the RHEL release version
+      shell:
+        cmd: cat /etc/redhat-release
+      register: cmd_result
+
+    - name: If the RHEL release version is 8.8, perform the upgrade process.
+      block:
+        - name: Check the settings of the google-chrome repository
+          shell:
+            cmd: dnf repolist all | grep -i google-chrome | grep -i enable
+          register: result
+          ignore_errors: true
+
+        - name: Disable the google-chrome repository
+          shell:
+            cmd: yum-config-manager --disable google-chrome
+          register: result
+          failed_when: result.rc != 0
+          when: "'google-chrome' in result.stdout"
+
+        - name: Checking the status of the repository for RHEL810
+          shell:
+            cmd: dnf repolist all | grep -e RHEL810-media-update-appstream -e RHEL810-media-update-baseos -e RHEL810-rpm | grep -i enable | wc -l
+          register: cmd_result
+
+        - name: If the repository for RHEL810 is enabled, perform the upgrade process.
+          block:
+            - name: Check for available updates in the installed package
+              shell:
+                cmd: dnf check-update
+              register: result
+              failed_when: result.rc != 0
+
+            - name: Performing a package upgrade
+              dnf:
+                name: "*"
+                state: latest
+              when: "'3' in cmd_result.stdout"
+
+        - name: Check the settings of the google-chrome repository
+          shell:
+            cmd: dnf repolist all | grep -i google-chrome | grep -i enable
+          register: result
+          ignore_errors: true
+
+        - name: Enable the google-chrome repository
+          shell:
+            cmd: yum-config-manager --enable google-chrome
+          register: result
+          failed_when: result.rc != 0
+          when: "'google-chrome' not in result.stdout"
+
+        - name: Reboot OS
+          ansible.builtin.reboot:
+            reboot_timeout: 600
+
+        - name: Check kernel version
+          shell:
+            cmd: uname -r
+          register: cmd_result
+          failed_when: "'4.18.0-553.el8_10.x86_64' not in cmd_result.stdout"
+
+        - name: Checking the RHEL release version
+          shell:
+            cmd: cat /etc/redhat-release
+          register: cmd_result
+          failed_when: "'Red Hat Enterprise Linux release 8.10 (Ootpa)' not in cmd_result.stdout"
+
+      when: "'Red Hat Enterprise Linux release 8.8 (Ootpa)' in cmd_result.stdout"
