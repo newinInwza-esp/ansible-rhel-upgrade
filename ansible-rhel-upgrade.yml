@@ -13,7 +13,7 @@
           shell:
             cmd: dnf repolist all | grep -i google-chrome | grep -i enable
           register: result
-          #failed_when: result.rc not in [0, 1] # <-- Prevents failure when google-chrome repo is not found (rc: 1)
+          failed_when: result.rc not in [0, 1] # <-- Prevents failure when google-chrome repo is not found (rc: 1)
 
         - name: Disable the google-chrome repository
           shell:
