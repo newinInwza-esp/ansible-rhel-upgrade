@@ -1,0 +1,55 @@
+---
+- hosts: all
+  become: true
+  become_user: oracle # <-- Executes tasks as the oracle OS user
+  vars:
+    oracle_sid: "ORCL" # <-- Target Oracle SID name
+    oracle_home: "/u01/app/oracle/product/19.0.0/dbhome_1" # <-- Path to ORACLE_HOME directory
+
+  environment:
+    ORACLE_SID: "{{ oracle_sid }}" # <-- Sets ORACLE_SID environment variable
+    ORACLE_HOME: "{{ oracle_home }}" # <-- Sets ORACLE_HOME environment variable
+    PATH: "{{ oracle_home }}/bin:{{ ansible_env.PATH }}" # <-- Adds Oracle binary path to PATH
+    LD_LIBRARY_PATH: "{{ oracle_home }}/lib:/usr/lib" # <-- Sets library path for Oracle binaries
+
+  tasks:
+    - name: Stop Oracle Database Instance
+      shell:
+        cmd: |
+          sqlplus / as sysdba << EOF
+          shutdown immediate;
+          exit;
+          EOF
+      register: shutdown_db_res # <-- Registers output of database shutdown command
+      changed_when: "'Database closed.' in shutdown_db_res.stdout or 'ORACLE instance shut down.' in shutdown_db_res.stdout" # <-- Marks task changed when DB shuts down
+
+    - name: Stop Oracle Listener
+      shell:
+        cmd: lsnrctl stop
+      register: stop_listener_res # <-- Registers output of listener stop command
+      failed_when: false # <-- Prevents failure if listener is already stopped
+      changed_when: stop_listener_res.rc == 0 # <-- Marks changed when listener stopped successfully
+
+    - name: Set umask value to 022
+      shell:
+        cmd: umask 022
+      register: umask_res # <-- Registers umask verification output
+      changed_when: false # <-- Prevents reporting state change for read/setting command
+
+    - name: Execute Oracle Home Relink All
+      shell:
+        cmd: "{{ oracle_home }}/bin/relink all"
+      register: relink_res # <-- Registers output from the relink process
+
+    - name: Find the latest relink log file
+      shell:
+        cmd: ls -t {{ oracle_home }}/install/relinkActions*.log | head -n 1
+      register: latest_log_res # <-- Registers path of the most recent relink log file
+      changed_when: false # <-- Prevents reporting state change for log path lookup
+
+    - name: Check log file for error keywords
+      shell:
+        cmd: grep -i -e warning -e fatal -e error -e stop -e exception -e severe -e "Exit Code 1" {{ latest_log_res.stdout }}
+      register: log_check_res # <-- Registers grep output from log file examination
+      failed_when: log_check_res.rc == 0 # <-- Fails task if any error keywords are found in log (rc: 0)
+      changed_when: false # <-- Prevents reporting state change for log check command
