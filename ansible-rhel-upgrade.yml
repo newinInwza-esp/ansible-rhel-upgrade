@@ -38,7 +38,7 @@
             - name: Performing a package upgrade
               shell:
                 cmd: dnf upgrade -y --releasever=8.10 # <-- Uses shell execution locking release version to 8.10
-              when: rhel810_repo_check.rc == 0 # <-- Triggers upgrade when repository is detected (rc == 0)
+              when: rhel810_repo_check.stdout | trim | int == 2 # <-- Triggers upgrade when repository is detected (rc == 2)
 
         - name: Check the settings of the google-chrome repository
           shell:
