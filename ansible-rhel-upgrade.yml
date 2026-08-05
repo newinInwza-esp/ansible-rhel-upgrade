@@ -24,7 +24,7 @@
 
         - name: Checking the status of the repository for RHEL810
           shell:
-            cmd: dnf repolist all | grep -e RHEL810-media-update-appstream -e RHEL810-media-update-baseos -e RHEL810-rpm | grep -i enable | wc -l
+            cmd: dnf repolist all | grep -e RHEL-8-10-AppStream -e RHEL-8-10-BaseOS | grep -i enable | wc -l # <-- [แก้ไข] เปลี่ยนชื่อ Repo ให้ตรงกับระบบจริง
           register: rhel810_repo_check # <-- เปลี่ยนชื่อตัวแปรเก็บค่านับ Repo ไม่ให้ซ้ำ
           failed_when: rhel810_repo_check.rc not in [0, 1]  # <-- กันพังกรณีไม่เจอ repo
           
