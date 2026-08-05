@@ -5,7 +5,7 @@
     - name: Checking the RHEL release version
       shell:
         cmd: cat /etc/redhat-release
-      register: cmd_result_before # <-- เปลี่ยนชื่อตัวแปรครั้งแรกเพื่อไม่ให้โดนทับ
+      register: cmd_result_before # <-- Renamed variable to prevent overwriting initial release check
 
     - name: If the RHEL release version is 8.8, perform the upgrade process.
       block:
@@ -13,44 +13,44 @@
           shell:
             cmd: dnf repolist all | grep -i google-chrome | grep -i enable
           register: result
-          #failed_when: result.rc not in [0, 1] # <-- ใส่กั้น rc: 1 เวลาหา Chrome ไม่เจอ
+          #failed_when: result.rc not in [0, 1] # <-- Prevents failure when google-chrome repo is not found (rc: 1)
 
         - name: Disable the google-chrome repository
           shell:
             cmd: yum-config-manager --disable google-chrome
           register: result
-          #failed_when: false # <-- ใส่กันพังกรณีไม่มีคำสั่ง yum-config-manager
+          #failed_when: false # <-- Prevents failure if yum-config-manager command is unavailable
           when: "'google-chrome' in result.stdout"
 
         - name: Checking the status of the repository for RHEL810
           shell:
-            cmd: dnf repolist all | grep -e RHEL810-media-update-appstream -e RHEL810-media-update-baseos -e RHEL810-rpm | grep -i enable # <-- Recheck เปลี่ยนชื่อ Repo ให้ตรงกับระบบจริง
-          register: rhel810_repo_check # <-- เปลี่ยนชื่อตัวแปรเก็บค่านับ Repo ไม่ให้ซ้ำ
-          
+            cmd: dnf repolist all | grep -e RHEL810-media-update-appstream -e RHEL810-media-update-baseos -e RHEL810-rpm | grep -i enable # <-- Ensure repository names match target system
+          register: rhel810_repo_check # <-- Dedicated variable name to avoid collision
+
         - name: If the repository for RHEL810 is enabled, perform the upgrade process.
           block:
             - name: Check for available updates in the installed package
               shell:
                 cmd: dnf check-update
               register: result
-              failed_when: result.rc not in [0, 100] # <-- [แก้ไข 5] ยอมรับ rc 100 (แปลว่ามีอัปเดต)
+              failed_when: result.rc not in [0, 100] # <-- Accepts rc 100 which indicates pending updates
 
             - name: Performing a package upgrade
               shell:
-                cmd: dnf upgrade -y --releasever=8.10 # <-- [แก้ไข 6] เปลี่ยนมาใช้ shell ล็อกเวอร์ชัน 8.10
-              when: rhel810_repo_check.rc == 0  # <-- [แก้ไข 7] สั่งอัปเกรดเมื่อเจอ repo (rc == 0)
+                cmd: dnf upgrade -y --releasever=8.10 # <-- Uses shell execution locking release version to 8.10
+              when: rhel810_repo_check.rc == 0 # <-- Triggers upgrade when repository is detected (rc == 0)
 
         - name: Check the settings of the google-chrome repository
           shell:
             cmd: dnf repolist all | grep -i google-chrome | grep -i enable
           register: result
-          failed_when: result.rc not in [0, 1] # <-- [แก้ไข 8] ใส่กั้น rc: 1 เวลาหา Chrome ไม่เจอ
+          failed_when: result.rc not in [0, 1] # <-- Prevents failure when google-chrome repo is not found
 
         - name: Enable the google-chrome repository
           shell:
             cmd: yum-config-manager --enable google-chrome
           register: result
-          #failed_when: false # <-- [แก้ไข 9] ใส่กันพังกรณีไม่มีคำสั่ง yum-config-manager
+          #failed_when: false # <-- Prevents failure if yum-config-manager command is unavailable
           when: "'google-chrome' not in result.stdout"
 
         - name: Reboot OS
@@ -60,13 +60,13 @@
         - name: Check kernel version
           shell:
             cmd: uname -r
-          register: kernel_check_res # <-- [แก้ไข 10] แก้ชื่อตัวแปรเฉพาะของ Kernel
-          failed_when: "'4.18.0-553.el8_10.x86_64' not in kernel_check_res.stdout" # <-- [แก้ไข 11] อ้างอิงตัวแปร kernel_check_res
+          register: kernel_check_res # <-- Dedicated variable for kernel verification
+          failed_when: "'4.18.0-553.el8_10.x86_64' not in kernel_check_res.stdout" # <-- References kernel_check_res variable
 
         - name: Checking the RHEL release version
           shell:
             cmd: cat /etc/redhat-release
-          register: cmd_result_after # <-- [แก้ไข 12] แก้ชื่อตัวแปรหลังอัปเกรด
+          register: cmd_result_after # <-- Variable for post-upgrade version check
           failed_when: "'Red Hat Enterprise Linux release 8.10 (Ootpa)' not in cmd_result_after.stdout"
 
-      when: "'Red Hat Enterprise Linux release 8.8 (Ootpa)' in cmd_result_before.stdout" # <-- [แก้ไข 13] อ้างอิงตัวแปรครั้งแรก
+      when: "'Red Hat Enterprise Linux release 8.8 (Ootpa)' in cmd_result_before.stdout" # <-- References initial release version check
