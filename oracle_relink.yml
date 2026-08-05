@@ -1,9 +1,9 @@
 ---
 - hosts: all
   become: true
-  become_user: oracle # <-- Executes tasks as the oracle OS user
+  become_user: x3ds # <-- Executes tasks as the oracle OS user
   vars:
-    oracle_sid: "ORCL" # <-- Target Oracle SID name
+    oracle_sid: "MYDB" # <-- Target Oracle SID name
     oracle_home: "/u01/app/oracle/product/19.0.0/dbhome_1" # <-- Path to ORACLE_HOME directory
 
   environment:
