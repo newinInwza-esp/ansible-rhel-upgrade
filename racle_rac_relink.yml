@@ -3,9 +3,9 @@
 # Part 1: Run on Node 1 Only (Stop Database, Listeners, and SCAN Services)
 # ==============================================================================
 - name: Stop Oracle RAC Services on Node 1
-  hosts: node1 # <-- กำหนดให้รันเฉพาะ Node 1 เท่านั้น
+  hosts: node1 # <-- Run on Node 1 Only
   become: true
-  become_user: grid # <-- รันคำสั่งด้วยสิทธิ์ grid user
+  become_user: grid # <-- run on grid user
   vars:
     grid_home: "/u01/app/19.0.0/grid"
 
