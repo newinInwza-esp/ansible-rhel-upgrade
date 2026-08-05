@@ -24,7 +24,7 @@
 
         - name: Checking the status of the repository for RHEL810
           shell:
-            cmd: dnf repolist all | grep -e RHEL810-media-update-appstream -e RHEL810-media-update-baseos -e RHEL810-rpm | grep -i enable # <-- Ensure repository names match target system
+            cmd: nf repolist all | grep -e RHEL810-media-update-appstream -e RHEL810-media-update-baseos -e RHEL810-rpm | grep -i enable | wc -l # <-- Ensure repository names match target system
           register: rhel810_repo_check # <-- Dedicated variable name to avoid collision
 
         - name: If the repository for RHEL810 is enabled, perform the upgrade process.
