@@ -1,0 +1,156 @@
+---
+# ==============================================================================
+# Part 1: Run on Node 1 Only (Stop Database, Listeners, and SCAN Services)
+# ==============================================================================
+- name: Stop Oracle RAC Services on Node 1
+  hosts: node1 # <-- กำหนดให้รันเฉพาะ Node 1 เท่านั้น
+  become: true
+  become_user: grid # <-- รันคำสั่งด้วยสิทธิ์ grid user
+  vars:
+    grid_home: "/u01/app/19.0.0/grid"
+
+  environment:
+    ORACLE_HOME: "{{ grid_home }}"
+    PATH: "{{ grid_home }}/bin:{{ ansible_env.PATH }}"
+
+  tasks:
+    - name: (2) Stop SCAN listener
+      shell:
+        cmd: "{{ grid_home }}/bin/srvctl stop scan_listener"
+      register: stop_scan_listener_res
+      failed_when: false
+
+    - name: (3) Stop SCAN VIP
+      shell:
+        cmd: "{{ grid_home }}/bin/srvctl stop scan"
+      register: stop_scan_res
+      failed_when: false
+
+    - name: (4) Stop listener
+      shell:
+        cmd: "{{ grid_home }}/bin/srvctl stop listener"
+      register: stop_listener_res
+      failed_when: false
+
+    - name: (5) Stop PLM3DEX database
+      shell:
+        cmd: "{{ grid_home }}/bin/srvctl stop database -d PLM3DEX -o immediate"
+      register: stop_db_plm3dex_res
+      failed_when: false
+
+    - name: (6) Stop PLMCUST database
+      shell:
+        cmd: "{{ grid_home }}/bin/srvctl stop database -d PLMCUST -o immediate"
+      register: stop_db_plmcust_res
+      failed_when: false
+
+    - name: (7) Stop PLMNARC database
+      shell:
+        cmd: "{{ grid_home }}/bin/srvctl stop database -d PLMNARC -o immediate"
+      register: stop_db_plmnarc_res
+      failed_when: false
+
+    - name: (8) Verify that SCAN listener, SCAN VIP, listener, and database are stopped
+      shell:
+        cmd: "{{ grid_home }}/bin/crsctl stat res -t"
+      register: crs_stat_res
+      changed_when: false
+
+
+# ==============================================================================
+# Part 2: Execute on Both Nodes (Node 1 and Node 2)
+# ==============================================================================
+- name: Relink Grid and Database Homes on All RAC Nodes
+  hosts: rac_nodes # <-- กลุ่มเซิร์ฟเวอร์ใน Inventory (รวม Node 1 และ Node 2)
+  become: true
+  vars:
+    grid_home: "/u01/app/19.0.0/grid" # <-- Path Grid Home
+    oracle_home: "/u01/app/oracle/product/19.0.0/dbhome_1" # <-- Path Oracle DB Home
+
+  tasks:
+    # --- Root Tasks: Stop Clusterware & Unlock Grid Home ---
+    - name: (10) Stop Clusterware
+      shell:
+        cmd: "{{ grid_home }}/bin/crsctl stop crs"
+      register: stop_crs_res
+      failed_when: "'CRS-4133' not in stop_crs_res.stdout and stop_crs_res.rc != 0"
+
+    - name: (11) Confirm Clusterware has stopped
+      shell:
+        cmd: "{{ grid_home }}/bin/crsctl check crs"
+      register: check_crs_res
+      failed_when: "'CRS-4639' not in check_crs_res.stdout"
+      changed_when: false
+
+    - name: (12) Unlock Grid Home
+      shell:
+        cmd: "./rootcrs.sh -unlock"
+        chdir: "{{ grid_home }}/crs/install"
+
+    # --- Grid User Tasks: Relink Grid Home ---
+    - name: (14) Execute Relink Grid Home
+      shell:
+        cmd: "{{ grid_home }}/bin/relink all"
+      become_user: grid
+      environment:
+        ORACLE_HOME: "{{ grid_home }}"
+        PATH: "{{ grid_home }}/bin:{{ ansible_env.PATH }}"
+      register: relink_grid_res
+
+    - name: (15) Find latest Grid relink log file
+      shell:
+        cmd: ls -t {{ grid_home }}/install/relinkActions*.log | head -n 1
+      become_user: grid
+      register: latest_grid_log
+      changed_when: false
+
+    - name: (15) Check Grid relink log for error keywords
+      shell:
+        cmd: grep -i -e warning -e fatal -e error -e stop -e exception -e severe -e "Exit Code 1" {{ latest_grid_log.stdout }}
+      become_user: grid
+      register: grid_log_check
+      failed_when: grid_log_check.rc == 0
+      changed_when: false
+
+    # --- Root Tasks: Lock Grid Home ---
+    - name: (17a) Execute rootadd_rdbms.sh
+      shell:
+        cmd: "./rootadd_rdbms.sh"
+        chdir: "{{ grid_home }}/rdbms/install"
+
+    - name: (17b) Lock Grid Home
+      shell:
+        cmd: "./rootcrs.sh -lock"
+        chdir: "{{ grid_home }}/crs/install"
+
+    # --- Oracle User Tasks: Relink DB Home ---
+    - name: (20) Set umask to 022
+      shell:
+        cmd: umask 022
+      become_user: oracle
+      changed_when: false
+
+    - name: (21) Execute Relink Oracle DB Home
+      shell:
+        cmd: "{{ oracle_home }}/bin/relink all"
+      become_user: oracle
+      environment:
+        ORACLE_HOME: "{{ oracle_home }}"
+        PATH: "{{ oracle_home }}/bin:{{ ansible_env.PATH }}"
+        LD_LIBRARY_PATH: "{{ oracle_home }}/lib:/usr/lib"
+      register: relink_db_res
+
+    - name: (22) Find latest DB relink log file
+      shell:
+        cmd: ls -t {{ oracle_home }}/install/relinkActions*.log | head -n 1
+      become_user: oracle
+      register: latest_db_log
+      changed_when: false
+
+    - name: (22) Check DB relink log for error keywords
+      shell:
+        cmd: grep -i -e warning -e fatal -e error -e stop -e exception -e severe -e "Exit Code 1" {{ latest_db_log.stdout }}
+      become_user: oracle
+      register: db_log_check
+      failed_when: db_log_check.rc == 0
+      changed_when: false
