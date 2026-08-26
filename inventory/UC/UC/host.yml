@@ -1,0 +1,48 @@
+all:
+  hosts:
+    trcur001:
+      ansible_host: 161.94.253.87
+    trcur002:
+      ansible_host: 161.94.253.88
+    trcur003:
+      ansible_host: 161.94.253.89
+    trcur004:
+      ansible_host: 161.94.253.90
+    trcur005:
+      ansible_host: 161.94.253.91
+    trcur006:
+      ansible_host: 161.94.253.92
+    trcur007:
+      ansible_host: 161.94.253.93
+    trcur008:
+      ansible_host: 161.94.253.94
+    trcur009:
+      ansible_host: 161.94.253.95
+    trcur010:
+      ansible_host: 161.94.253.96
+
+  children:
+    Combined_App_Server:
+      hosts:
+        trcur001:
+        trcur002:
+
+    3DIndex:
+      hosts:
+        trcur003:
+
+    Builder:
+      hosts:
+        trcur004:
+        trcur005:
+
+    Search:
+      hosts:
+        trcur006:
+        trcur007:
+        trcur008:
+        trcur009:
+
+    WBDM:
+      hosts:
+        trcur010:
