@@ -1,0 +1,50 @@
+all:
+  hosts:
+    trcur001:
+      ansible_host: 192.168.xxx.xxx
+    trcur002:
+      ansible_host: 192.168.xxx.xxx
+    trcur003:
+      ansible_host: 192.168.xxx.xxx
+    trcur004:
+      ansible_host: 192.168.xxx.xxx
+    trcur005:
+      ansible_host: 192.168.xxx.xxx
+    trcur006:
+      ansible_host: 192.168.xxx.xxx
+    trcur007:
+      ansible_host: 192.168.xxx.xxx
+    trcur008:
+      ansible_host: 192.168.xxx.xxx
+    trcur009:
+      ansible_host: 192.168.xxx.xxx
+    trcur010:
+      ansible_host: 192.168.xxx.xxx
+UnmountDIR:
+  hosts:
+    trcur001
+    trcur002:
+    trcur003:
+    trcur004:
+    trcur005:
+    trcur006:
+    trcur007:
+    trcur008:
+    trcur009:
+    trcur010:
+
+CheckmountDIR:
+  hosts:
+    trckr001:
+    trckr002:
+
+TerraceUnmountDIR:
+  hosts:
+    trckr001:
+    trckr002:
+
+TerraceCheckmountDIR:
+  hosts:
+    trckr001:
+    trckr002:
+ 
