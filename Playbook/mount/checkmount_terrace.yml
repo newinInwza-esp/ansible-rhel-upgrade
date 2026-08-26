@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Mount Check 
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop:
+        - /usr1/NAS_TERRACE_GO
+        - /usr1/NAS_DH_GO
+        - /usr1/NAS_BEV
+        - /usr1/NAS_DH_RE
+      when: "'TerraceCheckmountDIR' in group_names"

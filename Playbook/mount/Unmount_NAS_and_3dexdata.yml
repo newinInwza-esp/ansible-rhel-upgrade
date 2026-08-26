@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Unmount NAS and 3dex data directories 
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: unmounted
+      loop:
+        - /usr1/NAS
+        - /3dex_data
+      when: "'UnmountDIR' in group_names"

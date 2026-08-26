@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Unmount NAS directories for Terrace group
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: unmounted
+      loop:
+        - /usr1/NAS_TERRACE_GO
+        - /usr1/NAS_DH_GO
+        - /usr1/NAS_BEV
+        - /usr1/NAS_DH_RE
+      when: "'TerraceUnmountDIR' in group_names"
