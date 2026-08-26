@@ -4,147 +4,24 @@ all:
       ansible_host: 192.168.xxx.xxx
     trcsr002:
       ansible_host: 192.168.xxx.xxx
-    trcsr003:
-      ansible_host: 192.168.xxx.xxx
-    trcsr004:
-      ansible_host: 192.168.xxx.xxx
-    trcsr005:
-      ansible_host: 192.168.xxx.xxx
-    trcsr006:
-      ansible_host: 192.168.xxx.xxx
-    trcsr007:
-      ansible_host: 192.168.xxx.xxx
-    trcsr008:
-      ansible_host: 192.168.xxx.xxx
-    trcsr009:
-      ansible_host: 192.168.xxx.xxx
-    trcsr010:
-      ansible_host: 192.168.xxx.xxx
-    trcsr011:
-      ansible_host: 192.168.xxx.xxx
-    trcsr012:
-      ansible_host: 192.168.xxx.xxx
-    trcsr013:
-      ansible_host: 192.168.xxx.xxx
-    trcsr014:
-      ansible_host: 192.168.xxx.xxx
-    trcsr015:
-      ansible_host: 192.168.xxx.xxx
-    trcsr016:
-      ansible_host: 192.168.xxx.xxx
-    trcsr017:
-      ansible_host: 192.168.xxx.xxx
-    trcsr018:
-      ansible_host: 192.168.xxx.xxx
-    trcsr019:
-      ansible_host: 192.168.xxx.xxx
-    trcsr020:
-      ansible_host: 192.168.xxx.xxx
-    trcsr021:
-      ansible_host: 192.168.xxx.xxx
-    trcsr022:
-      ansible_host: 192.168.xxx.xxx
-    trcsr023:
-      ansible_host: 192.168.xxx.xxx
-    trcsr024:
-      ansible_host: 192.168.xxx.xxx
-    trcsr025:
-      ansible_host: 192.168.xxx.xxx
-    trcsr026:
-      ansible_host: 192.168.xxx.xxx
-    trcsr027:
-      ansible_host: 192.168.xxx.xxx
-    trcsr028:
-      ansible_host: 192.168.xxx.xxx
-    trcsr029:
-      ansible_host: 192.168.xxx.xxx
-    trcsr030:
-      ansible_host: 192.168.xxx.xxx
-    trcsr031:
-      ansible_host: 192.168.xxx.xxx
-    trcsr032:
-      ansible_host: 192.168.xxx.xxx
-    trcsr033:
-      ansible_host: 192.168.xxx.xxx
-    trcsr034:
-      ansible_host: 192.168.xxx.xxx
-    trcsr039:
-      ansible_host: 192.168.xxx.xxx
-    trcsr040:
-      ansible_host: 192.168.xxx.xxx
-    trcsr041:
-      ansible_host: 192.168.xxx.xxx
-    trcsr042:
-      ansible_host: 192.168.xxx.xxx
-    trcsr043:
-      ansible_host: 192.168.xxx.xxx
-    trcsr044:
-      ansible_host: 192.168.xxx.xxx
-    trcsr045:
-      ansible_host: 192.168.xxx.xxx
-    trcsr046:
-      ansible_host: 192.168.xxx.xxx
 
-UnmountDIR:
-  hosts:
-    trcsr001:
-    trcsr002:
-    trcsr003:
-    trcsr004:
-    trcsr005:
-    trcsr006:
-    trcsr007:
-    trcsr008:
-    trcsr009:
-    trcsr010:
-    trcsr011:
-    trcsr012:
-    trcsr013:
-    trcsr014:
-    trcsr015:
-    trcsr016:
-    trcsr017:
-    trcsr018:
-    trcsr019:
-    trcsr020:
-    trcsr021:
-    trcsr022:
-    trcsr023:
-    trcsr024:
-    trcsr025:
-    trcsr026:
-    trcsr027:
-    trcsr028:
-    trcsr029:
-    trcsr030:
-    trcsr031:
-    trcsr032:
-    trcsr033:
-    trcsr034:
-    trcsr035:
-    trcsr036:
-    trcsr037:
-    trcsr038:
-    trcsr039:
-    trcsr040:
-    trcsr041:
-    trcsr042:
-    trcsr043:
-    trcsr044:
-    trcsr045:
-    trcsr046:
+  children:
+    UnmountDIR:
+      hosts:
+        trcsr001:
+        trcsr002:
 
-CheckmountDIR:
-  hosts:
-    trcsr001:
-    trcsr002:
+    CheckmountDIR:
+      hosts:
+        trcsr001:
+        trcsr002:
 
-TerraceCheckmountDIR:
-  hosts:
-    trcsr001:
-    trcsr002:
+    TerraceCheckmountDIR:
+      hosts:
+        trcsr001:
+        trcsr002:
 
-TerraceUnmountDIR:
-  hosts:
-    trcsr001:
-    trcsr002:
+    TerraceUnmountDIR:
+      hosts:
+        trcsr001:
+        trcsr002:
