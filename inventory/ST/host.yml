@@ -1,28 +1,25 @@
 all:
-  hosts:
-    trckr001:
-      ansible_host: 192.168.xxx.xxx
-    trckr002:
-      ansible_host: 192.168.xxx.xxx
-   
-UnmountDIR:
-  hosts:
-    trckr001:
-    trckr002:
-    trckr003:
-    trckr004:
-   
-CheckmountDIR:
-  hosts:
-    trckr001:
-    trckr002:
+  children:
+    Space:
+      hosts:
+        trckr001:
+          ansible_host: 192.168.1.10
+        trckr002:
+          ansible_host: 192.168.1.11
 
-TerraceUnmountDIR:
-  hosts:
-    trckr001:
-    trckr002:
+    passport:
+      hosts:
+        trckr003:
+          ansible_host: 192.168.1.12
+        trckr004:
+          ansible_host: 192.168.1.13
 
-TerraceCheckmountDIR:
-  hosts:
-    trckr001:
-    trckr002:
+    TerraceCheckmountDIR:
+      hosts:
+        trckr001:
+        trckr002:
+
+    TerraceUnmountDIR:
+      hosts:
+        trckr001:
+        trckr002:
