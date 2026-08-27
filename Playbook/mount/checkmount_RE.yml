@@ -2,6 +2,43 @@
 - hosts: all
   become: true
   tasks:
+    - name: Check Mount DH_Front_End
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop:
+        - /usr1/NAS
+        - /3dex_data
+      when: "'DH_Front_End' in group_names"
+
+    - name: Check Mount DH_Back_End
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop:
+        - /usr1/NAS
+      when: "'DH_Back_End' in group_names"
+
+    - name: Check Mount DH_Customize_DB
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop: []
+      when: "'DH_Customize_DB' in group_names"
+
+    - name: Check Mount WBDM
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop:
+        - /appshare01
+        - /appshare02
+      when: "'WBDM' in group_names"
+
     - name: Check Mount Internal
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
@@ -129,17 +166,23 @@
         - /3dex_data
       when: "'FCS' in group_names"
 
-    - name: Check Mount Front_End
+    - name: Check Mount Onepart
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
       register: result
       failed_when: result.rc != 0
-      loop:
-        - /usr1/NAS
-        - /3dex_data
-      when: "'Front_End' in group_names"
+      loop: []
+      when: "'Onepart' in group_names"
 
-    - name: Check Mount Back_End
+    - name: Check Mount Backup_MRTG
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop: []
+      when: "'Backup_MRTG' in group_names"
+
+    - name: Check Mount BEV_Front_End
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
       register: result
@@ -147,4 +190,41 @@
       loop:
         - /usr1/NAS
         - /3dex_data
-      when: "'Back_End' in group_names"
+      when: "'BEV_Front_End' in group_names"
+
+    - name: Check Mount BEV_Back_End
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop:
+        - /usr1/NAS
+      when: "'BEV_Back_End' in group_names"
+
+    - name: Check Mount C4_Front_End
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop:
+        - /usr1/NAS
+        - /3dex_data
+      when: "'C4_Front_End' in group_names"
+
+    - name: Check Mount C4_Back_End
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop:
+        - /usr1/NAS
+      when: "'C4_Back_End' in group_names"
+
+    - name: Check Mount THEAI
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop:
+        - /
+      when: "'THEAI' in group_names"

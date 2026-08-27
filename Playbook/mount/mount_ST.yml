@@ -131,5 +131,4 @@
         state: mounted
       loop:
         - /usr1/NAS
-        - /3dex_data
-      when: "'Back_End' in group_names"
+       when: "'Back_End' in group_names"
