@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: true
+  become_user: "{{ oracle_user }}"  # สั่งสลับไปรันด้วยสิทธิ์ x3ds
+
+  tasks:
+    - name: Check Mount C4_Back_End
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop:
+        - /
+        - /proc
+      when: "'C4_Back_End' in group_names"
