@@ -3,6 +3,10 @@
   become: true
   become_user: "{{ oracle_user }}"  # สั่งสลับไปรันด้วยสิทธิ์ x3ds
 
+  vars_files:
+    - "../../inventory/RE/group_vars/all.yml"
+    #- "../../inventory/ST/group_vars/all.yml"
+
   tasks:
     - name: Check Mount C4_Back_End
       ansible.builtin.shell:
