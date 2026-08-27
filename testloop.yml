@@ -1,16 +1,15 @@
 ---
 - hosts: all
   become: true
-  become_user: "{{ oracle_user }}"  # สั่งสลับไปรันด้วยสิทธิ์ x3ds
 
   vars_files:
     - "../../inventory/RE/group_vars/all.yml"
-    #- "../../inventory/ST/group_vars/all.yml"
 
   tasks:
     - name: Check Mount C4_Back_End
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
+      become_user: "{{ oracle_user }}" # เรียกใช้ตรงนี้ ตัวแปรจะอ่านค่าได้พอดี
       register: result
       failed_when: result.rc != 0
       loop:
