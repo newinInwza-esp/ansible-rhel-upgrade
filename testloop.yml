@@ -1,6 +1,6 @@
 ---
-- hosts: trcsr*
-  become: true
+- hosts: localhost
+  connection: local
 
   vars_files:
     - "../../inventory/RE/group_vars/all.yml"
