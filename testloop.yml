@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: trcsr*
   become: true
 
   vars_files:
