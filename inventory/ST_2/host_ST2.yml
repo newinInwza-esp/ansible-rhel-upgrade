@@ -1,0 +1,93 @@
+all:
+  hosts:
+    trckr002:
+      ansible_host: 192.168.xxx.xxx
+    trckr008:
+      ansible_host: 192.168.xxx.xxx
+    trckr009:
+      ansible_host: 192.168.xxx.xxx
+    trckr010:
+      ansible_host: 192.168.xxx.xxx
+    trckr011:
+      ansible_host: 192.168.xxx.xxx
+    trckr012:
+      ansible_host: 192.168.xxx.xxx
+    trckr014:
+      ansible_host: 192.168.xxx.xxx
+    trckr016:
+      ansible_host: 192.168.xxx.xxx
+    trckr018:
+      ansible_host: 192.168.xxx.xxx
+    trckr021:
+      ansible_host: 192.168.xxx.xxx
+    trckr022:
+      ansible_host: 192.168.xxx.xxx
+    trckr025:
+      ansible_host: 192.168.xxx.xxx
+    trckr029:
+      ansible_host: 192.168.xxx.xxx
+    trckr031:
+      ansible_host: 192.168.xxx.xxx
+    trckr034:
+      ansible_host: 192.168.xxx.xxx
+    trckr035:
+      ansible_host: 192.168.xxx.xxx
+    trckr040:
+      ansible_host: 192.168.xxx.xxx
+    trckr042:
+      ansible_host: 192.168.xxx.xxx
+
+  children:
+    Internal:
+      hosts:
+        trckr002:
+
+    Space:
+      hosts:
+        trckr008:
+        trckr009:
+        trckr010:
+        trckr011:
+        trckr012:
+
+    passport_dashboard:
+      hosts:
+        trckr014:
+
+    3Dsearch:
+      hosts:
+        trckr016:
+
+    Builder:
+      hosts:
+        trckr018:
+
+    Search:
+      hosts:
+        trckr021:
+        trckr022:
+
+    3DComment:
+      hosts:
+        trckr025:
+
+    3DSwym:
+      hosts:
+        trckr029:
+
+    3DSwymIndex:
+      hosts:
+        trckr031:
+
+    FCS:
+      hosts:
+        trckr034:
+        trckr035:
+
+    RFCS:
+      hosts:
+        trckr040:
+
+    Front_End:
+      hosts:
+        trckr042:

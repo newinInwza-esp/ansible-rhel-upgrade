@@ -2,54 +2,54 @@
 - hosts: all
   become: true
   tasks:
-    - name: Unmount Combined_App_Server trcur001 
+    - name: Mount Combined_App_Server trcur001
       ansible.builtin.mount:
         path: "{{ item }}"
-        state: unmounted
+        state: mounted
       loop:
         - /appshare01
         - /appshare02
         - /3dex_nas
       when: "'Combined_App_Server' in group_names"
 
-    - name: Unmount Combined_App_Server trcur002 
+    - name: Mount Combined_App_Server trcur002
       ansible.builtin.mount:
         path: "{{ item }}"
-        state: unmounted
+        state: mounted
       loop:
         - /appshare01
         - /appshare02
         - /3dex_nas
       when: "'Combined_App_Server' in group_names"
 
-    - name: 3DIndex 
+    - name: Mount 3DIndex
       ansible.builtin.mount:
         path: "{{ item }}"
-        state: unmounted
+        state: mounted
       loop:
         - /3dex_data_NAS
       when: "'3DIndex' in group_names"
 
-    - name: Buider 
+    - name: Mount Builder
       ansible.builtin.mount:
         path: "{{ item }}"
-        state: unmounted
+        state: mounted
       loop:
         - /3dex_data_NAS
       when: "'Builder' in group_names"
 
-    - name: Search 
+    - name: Mount Search
       ansible.builtin.mount:
         path: "{{ item }}"
-        state: unmounted
+        state: mounted
       loop:
         - /3dex_data_NAS
       when: "'Search' in group_names"
 
-    - name: WBDM 
+    - name: Mount WBDM
       ansible.builtin.mount:
         path: "{{ item }}"
-        state: unmounted
+        state: mounted
       loop:
         - /appshare02
       when: "'WBDM' in group_names"

@@ -1,0 +1,51 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Mount Check Combined_App_Server
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop:
+        - /appshare01
+        - /appshare02
+        - /3dex_nas
+      when: "'Combined_App_Server' in group_names"
+
+    - name: Mount Check 3DIndex
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop:
+        - /3dex_data_NAS
+      when: "'3DIndex' in group_names"
+
+    - name: Mount Check Builder
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop:
+        - /3dex_data_NAS
+      when: "'Builder' in group_names"
+
+    - name: Mount Check Search
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop:
+        - /3dex_data_NAS
+      when: "'Search' in group_names"
+
+    - name: Mount Check WBDM
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop:
+        - /appshare02
+      when: "'WBDM' in group_names"

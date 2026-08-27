@@ -1,0 +1,6 @@
+# --- Connection Settings ---
+ansible_user: root
+
+# --- Oracle Common Settings ---
+oracle_user: "x3ds"
+oracle_home: "/app/oracle/product/19c/db_1"

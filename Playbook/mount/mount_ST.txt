@@ -1,0 +1,135 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Mount Internal
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: mounted
+      loop:
+        - /appshare01
+        - /appshare02
+        - /usr1/NAS
+      when: "'Internal' in group_names"
+
+    - name: Mount Space
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: mounted
+      loop:
+        - /appshare01
+        - /appshare02
+        - /usr1/NAS
+      when: "'Space' in group_names"
+
+    - name: Mount passport_dashboard
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: mounted
+      loop:
+        - /usr1/NAS
+      when: "'passport_dashboard' in group_names"
+
+    - name: Mount 3Dsearch
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: mounted
+      loop:
+        - /usr1/NAS
+      when: "'3Dsearch' in group_names"
+
+    - name: Mount Builder
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: mounted
+      loop:
+        - /usr1/NAS
+        - /3dex_data_NAS
+      when: "'Builder' in group_names"
+
+    - name: Mount Search
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: mounted
+      loop:
+        - /usr1/NAS
+        - /3dex_data_NAS
+      when: "'Search' in group_names"
+
+    - name: Mount crawler
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: mounted
+      loop:
+        - /usr1/NAS
+      when: "'crawler' in group_names"
+
+    - name: Mount 3DComment
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: mounted
+      loop:
+        - /usr1/NAS
+        - /3dex_data
+      when: "'3DComment' in group_names"
+
+    - name: Mount 3DNotification
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: mounted
+      loop:
+        - /usr1/NAS
+      when: "'3DNotification' in group_names"
+
+    - name: Mount 3DSwym
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: mounted
+      loop:
+        - /usr1/NAS
+        - /3dswym_data
+      when: "'3DSwym' in group_names"
+
+    - name: Mount 3DIndex
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: mounted
+      loop:
+        - /usr1/NAS
+      when: "'3DIndex' in group_names"
+
+    - name: Mount 3DSwymIndex
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: mounted
+      loop:
+        - /usr1/NAS
+        - /3dswym_data
+      when: "'3DSwymIndex' in group_names"
+
+    - name: Mount FCS
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: mounted
+      loop:
+        - /usr1/NAS
+        - /3dex_data
+      when: "'FCS' in group_names"
+
+    - name: Mount Front_End
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: mounted
+      loop:
+        - /usr1/NAS
+        - /3dex_data
+      when: "'Front_End' in group_names"
+
+    - name: Mount Back_End
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: mounted
+      loop:
+        - /usr1/NAS
+        - /3dex_data
+      when: "'Back_End' in group_names"
