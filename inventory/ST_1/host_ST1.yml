@@ -1,7 +1,7 @@
 all:
   hosts:
     trckr001:
-      ansible_host: 192.168.xxx.xxx
+      ansible_host: 192.168.120.56
     trckr003:
       ansible_host: 192.168.xxx.xxx
     trckr004:
@@ -46,72 +46,74 @@ all:
       ansible_host: 192.168.xxx.xxx
 
   children:
-    Internal:
-      hosts:
-        trckr001:
+    ST_Phase1:
+      children:
+        Internal:
+          hosts:
+            trckr001:
 
-    Space:
-      hosts:
-        trckr003:
-        trckr004:
-        trckr005:
-        trckr006:
-        trckr007:
+        Space:
+          hosts:
+            trckr003:
+            trckr004:
+            trckr005:
+            trckr006:
+            trckr007:
 
-    passport_dashboard:
-      hosts:
-        trckr013:
+        passport_dashboard:
+          hosts:
+            trckr013:
 
-    3Dsearch:
-      hosts:
-        trckr015:
+        3Dsearch:
+          hosts:
+            trckr015:
 
-    Builder:
-      hosts:
-        trckr017:
+        Builder:
+          hosts:
+            trckr017:
 
-    Search:
-      hosts:
-        trckr019:
-        trckr020:
+        Search:
+          hosts:
+            trckr019:
+            trckr020:
 
-    crawler:
-      hosts:
-        trckr023:
+        crawler:
+          hosts:
+            trckr023:
 
-    3DComment:
-      hosts:
-        trckr024:
+        3DComment:
+          hosts:
+            trckr024:
 
-    3DNotification:
-      hosts:
-        trckr026:
+        3DNotification:
+          hosts:
+            trckr026:
 
-    3DSwym:
-      hosts:
-        trckr028:
+        3DSwym:
+          hosts:
+            trckr028:
 
-    3DIndex:
-      hosts:
-        trckr030:
+        3DIndex:
+          hosts:
+            trckr030:
 
-    FCS:
-      hosts:
-        trckr032:
-        trckr033:
+        FCS:
+          hosts:
+            trckr032:
+            trckr033:
 
-    THEAI:
-      hosts:
-        trckr037:
+        THEAI:
+          hosts:
+            trckr037:
 
-    DB_server:
-      hosts:
-        trckr039:
+        DB_server:
+          hosts:
+            trckr039:
 
-    Front_End:
-      hosts:
-        trckr041:
+        Front_End:
+          hosts:
+            trckr041:
 
-    Back_End:
-      hosts:
-        trckr043:
+        Back_End:
+          hosts:
+            trckr043:

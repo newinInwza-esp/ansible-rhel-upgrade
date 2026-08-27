@@ -77,7 +77,7 @@ all:
     trcsr044:
       ansible_host: 192.168.xxx.xxx
     trcsr045:
-      ansible_host: 192.168.120.55
+      ansible_host: 192.168.xxx.xxx
     trcsr046:
       ansible_host: 192.168.xxx.xxx
 

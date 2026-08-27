@@ -38,56 +38,58 @@ all:
       ansible_host: 192.168.xxx.xxx
 
   children:
-    Internal:
-      hosts:
-        trckr002:
+    ST_Phase2:
+      children:
+        Internal:
+          hosts:
+            trckr002:
 
-    Space:
-      hosts:
-        trckr008:
-        trckr009:
-        trckr010:
-        trckr011:
-        trckr012:
+        Space:
+          hosts:
+            trckr008:
+            trckr009:
+            trckr010:
+            trckr011:
+            trckr012:
 
-    passport_dashboard:
-      hosts:
-        trckr014:
+        passport_dashboard:
+          hosts:
+            trckr014:
 
-    3Dsearch:
-      hosts:
-        trckr016:
+        3Dsearch:
+          hosts:
+            trckr016:
 
-    Builder:
-      hosts:
-        trckr018:
+        Builder:
+          hosts:
+            trckr018:
 
-    Search:
-      hosts:
-        trckr021:
-        trckr022:
+        Search:
+          hosts:
+            trckr021:
+            trckr022:
 
-    3DComment:
-      hosts:
-        trckr025:
+        3DComment:
+          hosts:
+            trckr025:
 
-    3DSwym:
-      hosts:
-        trckr029:
+        3DSwym:
+          hosts:
+            trckr029:
 
-    3DSwymIndex:
-      hosts:
-        trckr031:
+        3DSwymIndex:
+          hosts:
+            trckr031:
 
-    FCS:
-      hosts:
-        trckr034:
-        trckr035:
+        FCS:
+          hosts:
+            trckr034:
+            trckr035:
 
-    RFCS:
-      hosts:
-        trckr040:
+        RFCS:
+          hosts:
+            trckr040:
 
-    Front_End:
-      hosts:
-        trckr042:
+        Front_End:
+          hosts:
+            trckr042:

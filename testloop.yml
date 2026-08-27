@@ -1,6 +1,6 @@
 ---
-- hosts: localhost
-  connection: local
+- hosts: all        # คงไว้ตามที่คุณต้องการ
+  become: true      # ใส่ไว้เพื่อให้ย้ายไปใช้สิทธิ์ root / oracle_user ได้
 
   vars_files:
     - "../../inventory/RE/group_vars/all.yml"
@@ -9,7 +9,7 @@
     - name: Check Mount C4_Back_End
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
-      become_user: "{{ oracle_user }}" # เรียกใช้ตรงนี้ ตัวแปรจะอ่านค่าได้พอดี
+      become_user: "{{ oracle_user }}"
       register: result
       failed_when: result.rc != 0
       loop:

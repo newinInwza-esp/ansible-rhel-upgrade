@@ -196,11 +196,3 @@
       loop:
         - /usr1/NAS
       when: "'C4_Back_End' in group_names"
-
-    - name: Unmount THEAI
-      ansible.builtin.mount:
-        path: "{{ item }}"
-        state: unmounted
-      loop:
-        - /
-      when: "'THEAI' in group_names"

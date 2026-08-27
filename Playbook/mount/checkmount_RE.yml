@@ -219,12 +219,3 @@
       loop:
         - /usr1/NAS
       when: "'C4_Back_End' in group_names"
-
-    - name: Check Mount THEAI
-      ansible.builtin.shell:
-        cmd: "mount | grep -i '{{ item }}'"
-      register: result
-      failed_when: result.rc != 0
-      loop:
-        - /
-      when: "'THEAI' in group_names"
