@@ -16,4 +16,4 @@
       loop:
         - /
         - /proc
-      when: "'C4_Back_End' in group_names"
+      when: "'Internal' in group_names"
