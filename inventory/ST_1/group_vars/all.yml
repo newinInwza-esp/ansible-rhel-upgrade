@@ -1,5 +1,6 @@
 # --- Connection Settings ---
 ansible_user: root
+ansible_password: "ESP12345"
 
 # --- Oracle Common Settings ---
 oracle_user: "x3ds"
