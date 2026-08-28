@@ -1,5 +1,5 @@
 ---
-- hosts: trckr001    
+- hosts: all    
   gather_facts: false  # ปิดการกวาดข้อมูลระบบ เพื่อไม่ให้ติด Timeout เครื่องอื่น    # คงไว้ตามที่คุณต้องการ
   become: true      # ใส่ไว้เพื่อให้ย้ายไปใช้สิทธิ์ root / oracle_user ได้
 
