@@ -1,6 +1,6 @@
 # --- Connection Settings ---
 ansible_user: root
-ansible_password: "ใส่รหัสผ่านของrootตรงนี้"
+#ansible_password: "ใส่รหัสผ่านของrootตรงนี้"
 
 # --- Oracle Common Settings ---
 oracle_user: "x3ds"
