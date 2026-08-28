@@ -15,4 +15,4 @@
       loop:
         - /
         - /proc
-      when: "'ST1_Internal' in group_names"
+      when: "'Internal' in group_names"
