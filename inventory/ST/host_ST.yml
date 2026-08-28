@@ -82,12 +82,12 @@ all:
       ansible_host: 192.168.xxx.xxx
 
   children:
-    Internal:
+    ST_Internal:
       hosts:
         trckr001:
         trckr002:
 
-    Space:
+    ST_Space:
       hosts:
         trckr003:
         trckr004:
@@ -100,78 +100,78 @@ all:
         trckr011:
         trckr012:
 
-    passport_dashboard:
+    ST_passport_dashboard:
       hosts:
         trckr013:
         trckr014:
 
-    3Dsearch:
+    ST_3Dsearch:
       hosts:
         trckr015:
         trckr016:
 
-    Builder:
+    ST_Builder:
       hosts:
         trckr017:
         trckr018:
 
-    Search:
+    ST_Search:
       hosts:
         trckr019:
         trckr020:
         trckr021:
         trckr022:
 
-    crawler:
+    ST_crawler:
       hosts:
         trckr023:
 
-    3DComment:
+    ST_3DComment:
       hosts:
         trckr024:
         trckr025:
 
-    3DNotification:
+    ST_3DNotification:
       hosts:
         trckr026:
 
-    3DSwym:
+    ST_3DSwym:
       hosts:
         trckr028:
         trckr029:
 
-    3DIndex:
+    ST_3DIndex:
       hosts:
         trckr030:
 
-    3DSwymIndex:
+    ST_3DSwymIndex:
       hosts:
         trckr031:
 
-    FCS:
+    ST_FCS:
       hosts:
         trckr032:
         trckr033:
         trckr034:
         trckr035:
 
-    THEAI:
+    ST_THEAI:
       hosts:
         trckr037:
 
-    DB_server:
+    ST_DB_server:
       hosts:
         trckr039:
 
-    RFCS:
+    ST_RFCS:
       hosts:
         trckr040:
 
-    Front_End:
+    ST_Front_End:
       hosts:
         trckr041:
         trckr042:
 
-    Back_End:
+    ST_Back_End:
       hosts:
         trckr043:
