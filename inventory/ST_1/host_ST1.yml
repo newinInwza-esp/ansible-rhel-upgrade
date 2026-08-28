@@ -2,6 +2,7 @@ all:
   hosts:
     trckr001:
       ansible_host: 192.168.120.56
+      
     trckr003:
       ansible_host: 192.168.xxx.xxx
     trckr004:
