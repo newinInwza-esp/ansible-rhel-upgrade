@@ -2,7 +2,7 @@
 - hosts: all
   become: true
   tasks:
-    - name: Unmount ST_Internal
+    - name: Unmount Internal
       ansible.builtin.mount:
         path: "{{ item }}"
         state: unmounted
@@ -10,9 +10,9 @@
         - /appshare01
         - /appshare02
         - /usr1/NAS
-      when: "'ST_Internal' in group_names"
+      when: "'Internal' in group_names"
 
-    - name: Unmount ST_Space
+    - name: Unmount Space
       ansible.builtin.mount:
         path: "{{ item }}"
         state: unmounted
@@ -20,115 +20,115 @@
         - /appshare01
         - /appshare02
         - /usr1/NAS
-      when: "'ST_Space' in group_names"
+      when: "'Space' in group_names"
 
-    - name: Unmount ST_passport_dashboard
+    - name: Unmount passport_dashboard
       ansible.builtin.mount:
         path: "{{ item }}"
         state: unmounted
       loop:
         - /usr1/NAS
-      when: "'ST_passport_dashboard' in group_names"
+      when: "'passport_dashboard' in group_names"
 
-    - name: Unmount ST_3Dsearch
+    - name: Unmount 3Dsearch
       ansible.builtin.mount:
         path: "{{ item }}"
         state: unmounted
       loop:
         - /usr1/NAS
-      when: "'ST_3Dsearch' in group_names"
+      when: "'3Dsearch' in group_names"
 
-    - name: Unmount ST_Builder
-      ansible.builtin.mount:
-        path: "{{ item }}"
-        state: unmounted
-      loop:
-        - /usr1/NAS
-        - /3dex_data_NAS
-      when: "'ST_Builder' in group_names"
-
-    - name: Unmount ST_Search
+    - name: Unmount Builder
       ansible.builtin.mount:
         path: "{{ item }}"
         state: unmounted
       loop:
         - /usr1/NAS
         - /3dex_data_NAS
-      when: "'ST_Search' in group_names"
+      when: "'Builder' in group_names"
 
-    - name: Unmount ST_crawler
+    - name: Unmount Search
       ansible.builtin.mount:
         path: "{{ item }}"
         state: unmounted
       loop:
         - /usr1/NAS
-      when: "'ST_crawler' in group_names"
+        - /3dex_data_NAS
+      when: "'Search' in group_names"
 
-    - name: Unmount ST_3DComment
+    - name: Unmount crawler
+      ansible.builtin.mount:
+        path: "{{ item }}"
+        state: unmounted
+      loop:
+        - /usr1/NAS
+      when: "'crawler' in group_names"
+
+    - name: Unmount 3DComment
       ansible.builtin.mount:
         path: "{{ item }}"
         state: unmounted
       loop:
         - /usr1/NAS
         - /3dex_data
-      when: "'ST_3DComment' in group_names"
+      when: "'3DComment' in group_names"
 
-    - name: Unmount ST_3DNotification
+    - name: Unmount 3DNotification
       ansible.builtin.mount:
         path: "{{ item }}"
         state: unmounted
       loop:
         - /usr1/NAS
-      when: "'ST_3DNotification' in group_names"
+      when: "'3DNotification' in group_names"
 
-    - name: Unmount ST_3DSwym
+    - name: Unmount 3DSwym
       ansible.builtin.mount:
         path: "{{ item }}"
         state: unmounted
       loop:
         - /usr1/NAS
         - /3dswym_data
-      when: "'ST_3DSwym' in group_names"
+      when: "'3DSwym' in group_names"
 
-    - name: Unmount ST_3DIndex
+    - name: Unmount 3DIndex
       ansible.builtin.mount:
         path: "{{ item }}"
         state: unmounted
       loop:
         - /usr1/NAS
-      when: "'ST_3DIndex' in group_names"
+      when: "'3DIndex' in group_names"
 
-    - name: Unmount ST_3DSwymIndex
+    - name: Unmount 3DSwymIndex
       ansible.builtin.mount:
         path: "{{ item }}"
         state: unmounted
       loop:
         - /usr1/NAS
         - /3dswym_data
-      when: "'ST_3DSwymIndex' in group_names"
+      when: "'3DSwymIndex' in group_names"
 
-    - name: Unmount ST_FCS
+    - name: Unmount FCS
       ansible.builtin.mount:
         path: "{{ item }}"
         state: unmounted
       loop:
         - /usr1/NAS
         - /3dex_data
-      when: "'ST_FCS' in group_names"
+      when: "'FCS' in group_names"
 
-    - name: Unmount ST_Front_End
+    - name: Unmount Front_End
       ansible.builtin.mount:
         path: "{{ item }}"
         state: unmounted
       loop:
         - /usr1/NAS
         - /3dex_data
-      when: "'ST_Front_End' in group_names"
+      when: "'Front_End' in group_names"
 
-    - name: Unmount ST_Back_End
+    - name: Unmount Back_End
       ansible.builtin.mount:
         path: "{{ item }}"
         state: unmounted
       loop:
         - /usr1/NAS
-      when: "'ST_Back_End' in group_names"
+      when: "'Back_End' in group_names"

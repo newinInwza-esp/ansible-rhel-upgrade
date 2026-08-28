@@ -2,7 +2,6 @@ all:
   hosts:
     trckr001:
       ansible_host: 192.168.120.56
-      
     trckr003:
       ansible_host: 192.168.xxx.xxx
     trckr004:
@@ -49,11 +48,11 @@ all:
   children:
     ST_Phase1:
       children:
-        ST1_Internal:
+        Internal:
           hosts:
             trckr001:
 
-        ST1_Space:
+        Space:
           hosts:
             trckr003:
             trckr004:
@@ -61,60 +60,60 @@ all:
             trckr006:
             trckr007:
 
-        ST1_passport_dashboard:
+        passport_dashboard:
           hosts:
             trckr013:
 
-        ST1_3Dsearch:
+        3Dsearch:
           hosts:
             trckr015:
 
-        ST1_Builder:
+        Builder:
           hosts:
             trckr017:
 
-        ST1_Search:
+        Search:
           hosts:
             trckr019:
             trckr020:
 
-        ST1_crawler:
+        crawler:
           hosts:
             trckr023:
 
-        ST1_3DComment:
+        3DComment:
           hosts:
             trckr024:
 
-        ST1_3DNotification:
+        3DNotification:
           hosts:
             trckr026:
 
-        ST1_3DSwym:
+        3DSwym:
           hosts:
             trckr028:
 
-        ST1_3DIndex:
+        3DIndex:
           hosts:
             trckr030:
 
-        ST1_FCS:
+        FCS:
           hosts:
             trckr032:
             trckr033:
 
-        ST1_THEAI:
+        THEAI:
           hosts:
             trckr037:
 
-        ST1_DB_server:
+        DB_server:
           hosts:
             trckr039:
 
-        ST1_Front_End:
+        Front_End:
           hosts:
             trckr041:
 
-        ST1_Back_End:
+        Back_End:
           hosts:
             trckr043:

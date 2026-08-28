@@ -2,7 +2,7 @@
 - hosts: all
   become: true
   tasks:
-    - name: Check Mount ST_Internal
+    - name: Check Mount Internal
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
       register: result
@@ -11,9 +11,9 @@
         - /appshare01
         - /appshare02
         - /usr1/NAS
-      when: "'ST_Internal' in group_names"
+      when: "'Internal' in group_names"
 
-    - name: Check Mount ST_Space
+    - name: Check Mount Space
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
       register: result
@@ -22,37 +22,27 @@
         - /appshare01
         - /appshare02
         - /usr1/NAS
-      when: "'ST_Space' in group_names"
+      when: "'Space' in group_names"
 
-    - name: Check Mount ST_passport_dashboard
+    - name: Check Mount passport_dashboard
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
       register: result
       failed_when: result.rc != 0
       loop:
         - /usr1/NAS
-      when: "'ST_passport_dashboard' in group_names"
+      when: "'passport_dashboard' in group_names"
 
-    - name: Check Mount ST_3Dsearch
+    - name: Check Mount 3Dsearch
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
       register: result
       failed_when: result.rc != 0
       loop:
         - /usr1/NAS
-      when: "'ST_3Dsearch' in group_names"
+      when: "'3Dsearch' in group_names"
 
-    - name: Check Mount ST_Builder
-      ansible.builtin.shell:
-        cmd: "mount | grep -i '{{ item }}'"
-      register: result
-      failed_when: result.rc != 0
-      loop:
-        - /usr1/NAS
-        - /3dex_data_NAS
-      when: "'ST_Builder' in group_names"
-
-    - name: Check Mount ST_Search
+    - name: Check Mount Builder
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
       register: result
@@ -60,18 +50,28 @@
       loop:
         - /usr1/NAS
         - /3dex_data_NAS
-      when: "'ST_Search' in group_names"
+      when: "'Builder' in group_names"
 
-    - name: Check Mount ST_crawler
+    - name: Check Mount Search
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
       register: result
       failed_when: result.rc != 0
       loop:
         - /usr1/NAS
-      when: "'ST_crawler' in group_names"
+        - /3dex_data_NAS
+      when: "'Search' in group_names"
 
-    - name: Check Mount ST_3DComment
+    - name: Check Mount crawler
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      register: result
+      failed_when: result.rc != 0
+      loop:
+        - /usr1/NAS
+      when: "'crawler' in group_names"
+
+    - name: Check Mount 3DComment
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
       register: result
@@ -79,18 +79,18 @@
       loop:
         - /usr1/NAS
         - /3dex_data
-      when: "'ST_3DComment' in group_names"
+      when: "'3DComment' in group_names"
 
-    - name: Check Mount ST_3DNotification
+    - name: Check Mount 3DNotification
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
       register: result
       failed_when: result.rc != 0
       loop:
         - /usr1/NAS
-      when: "'ST_3DNotification' in group_names"
+      when: "'3DNotification' in group_names"
 
-    - name: Check Mount ST_3DSwym
+    - name: Check Mount 3DSwym
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
       register: result
@@ -98,18 +98,18 @@
       loop:
         - /usr1/NAS
         - /3dswym_data
-      when: "'ST_3DSwym' in group_names"
+      when: "'3DSwym' in group_names"
 
-    - name: Check Mount ST_3DIndex
+    - name: Check Mount 3DIndex
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
       register: result
       failed_when: result.rc != 0
       loop:
         - /usr1/NAS
-      when: "'ST_3DIndex' in group_names"
+      when: "'3DIndex' in group_names"
 
-    - name: Check Mount ST_3DSwymIndex
+    - name: Check Mount 3DSwymIndex
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
       register: result
@@ -117,9 +117,9 @@
       loop:
         - /usr1/NAS
         - /3dswym_data
-      when: "'ST_3DSwymIndex' in group_names"
+      when: "'3DSwymIndex' in group_names"
 
-    - name: Check Mount ST_FCS
+    - name: Check Mount FCS
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
       register: result
@@ -127,9 +127,9 @@
       loop:
         - /usr1/NAS
         - /3dex_data
-      when: "'ST_FCS' in group_names"
+      when: "'FCS' in group_names"
 
-    - name: Check Mount ST_Front_End
+    - name: Check Mount Front_End
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
       register: result
@@ -137,13 +137,13 @@
       loop:
         - /usr1/NAS
         - /3dex_data
-      when: "'ST_Front_End' in group_names"
+      when: "'Front_End' in group_names"
 
-    - name: Check Mount ST_Back_End
+    - name: Check Mount Back_End
       ansible.builtin.shell:
         cmd: "mount | grep -i '{{ item }}'"
       register: result
       failed_when: result.rc != 0
       loop:
         - /usr1/NAS
-      when: "'ST_Back_End' in group_names"
+      when: "'Back_End' in group_names"

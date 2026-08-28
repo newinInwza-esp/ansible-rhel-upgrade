@@ -40,11 +40,11 @@ all:
   children:
     ST_Phase2:
       children:
-        ST2_Internal:
+        Internal:
           hosts:
             trckr002:
 
-        ST2_Space:
+        Space:
           hosts:
             trckr008:
             trckr009:
@@ -52,44 +52,44 @@ all:
             trckr011:
             trckr012:
 
-        ST2_passport_dashboard:
+        passport_dashboard:
           hosts:
             trckr014:
 
-        ST2_3Dsearch:
+        3Dsearch:
           hosts:
             trckr016:
 
-        ST2_Builder:
+        Builder:
           hosts:
             trckr018:
 
-        ST2_Search:
+        Search:
           hosts:
             trckr021:
             trckr022:
 
-        ST2_3DComment:
+        3DComment:
           hosts:
             trckr025:
 
-        ST2_3DSwym:
+        3DSwym:
           hosts:
             trckr029:
 
-        ST2_3DSwymIndex:
+        3DSwymIndex:
           hosts:
             trckr031:
 
-        ST2_FCS:
+        FCS:
           hosts:
             trckr034:
             trckr035:
 
-        ST2_RFCS:
+        RFCS:
           hosts:
             trckr040:
 
-        ST2_Front_End:
+        Front_End:
           hosts:
             trckr042:
