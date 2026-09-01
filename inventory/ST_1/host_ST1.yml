@@ -36,14 +36,6 @@ all:
       ansible_host: 192.168.120.56
     trckr033:
       ansible_host: 192.168.120.56
-    trckr037:
-      ansible_host: 192.168.120.56
-    trckr039:
-      ansible_host: 192.168.120.56
-    trckr041:
-      ansible_host: 192.168.120.56
-    trckr043:
-      ansible_host: 192.168.120.56
 
   children:
     ST_Phase1:
@@ -101,19 +93,3 @@ all:
           hosts:
             trckr032:
             trckr033:
-
-        THEAI:
-          hosts:
-            trckr037:
-
-        DB_server:
-          hosts:
-            trckr039:
-
-        Front_End:
-          hosts:
-            trckr041:
-
-        Back_End:
-          hosts:
-            trckr043:
