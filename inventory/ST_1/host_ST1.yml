@@ -3,11 +3,11 @@ all:
     trckr001:
       ansible_host: 192.168.120.56
     trckr003:
-      ansible_host: 192.168.120.xx
+      ansible_host: 192.168.120.56
     trckr004:
-      ansible_host: 192.168.120.xx
+      ansible_host: 192.168.120.56
     trckr005:
-      ansible_host: 192.168.120.xx
+      ansible_host: 192.168.120.56
     trckr006:
       ansible_host: 192.168.120.56
     trckr007:
@@ -15,11 +15,11 @@ all:
     trckr013:
       ansible_host: 192.168.120.56
     trckr015:
-      ansible_host: 192.168.120.xx
+      ansible_host: 192.168.120.56
     trckr017:
       ansible_host: 192.168.120.56
     trckr019:
-      ansible_host: 192.168.120.xx
+      ansible_host: 192.168.120.56
     trckr020:
       ansible_host: 192.168.120.56
     trckr023:
@@ -27,7 +27,7 @@ all:
     trckr024:
       ansible_host: 192.168.120.56
     trckr026:
-      ansible_host: 192.168.120.xx
+      ansible_host: 192.168.120.56
     trckr028:
       ansible_host: 192.168.120.56
     trckr030:
@@ -35,7 +35,7 @@ all:
     trckr032:
       ansible_host: 192.168.120.56
     trckr033:
-      ansible_host: 192.168.120.xx
+      ansible_host: 192.168.120.56
 
   children:
     ST_Phase1:
