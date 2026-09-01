@@ -17,3 +17,17 @@
         - /proc
       when: "'Internal' in group_names"
 
+  vars_files:
+  - "inventory/ST_1/group_vars/all.yml"
+  tasks:
+    - name: Check connect and command
+      ansible.builtin.shell:
+        cmd: "mount | grep -i '{{ item }}'"
+      become_user: "{{ oracle_user }}"
+      register: result
+      failed_when: result.rc != 0
+      loop:
+        - /
+        - /proc
+      when: "'space' in group_names"
+
