@@ -13,13 +13,7 @@
       register: result
       failed_when: result.rc != 0
       loop:
-        - /mnt
+        - /
+        - /proc
       when: "'Internal' in group_names"
 
-    - name: Unmount Internal
-      ansible.builtin.mount:
-        path: "{{ item }}"
-        state: unmounted
-      loop:
-        - /mnt
-      when: "'Internal' in group_names"
