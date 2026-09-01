@@ -8,9 +8,9 @@
       register: result
       failed_when: result.rc != 0
       loop:
-        - /boot
-        - /tmp
-        - /dev/shm
+        - /sys
+        - /proc
+        - /dev
       when: "'Internal' in group_names"
 
     - name: Check Mount Space
@@ -19,9 +19,9 @@
       register: result
       failed_when: result.rc != 0
       loop:
-        - /boot
-        - /tmp
-        - /dev/shm
+        - /sys
+        - /proc
+        - /dev
       when: "'Space' in group_names"
 
     - name: Check Mount passport_dashboard
@@ -30,7 +30,7 @@
       register: result
       failed_when: result.rc != 0
       loop:
-        - /boot
+        - /sys
       when: "'passport_dashboard' in group_names"
 
     - name: Check Mount 3Dsearch
@@ -39,7 +39,7 @@
       register: result
       failed_when: result.rc != 0
       loop:
-        - /boot
+        - /sys
       when: "'3Dsearch' in group_names"
 
     - name: Check Mount Builder
@@ -48,8 +48,8 @@
       register: result
       failed_when: result.rc != 0
       loop:
-        - /boot
-        - /tmp
+        - /sys
+        - /proc
       when: "'Builder' in group_names"
 
     - name: Check Mount Search
@@ -58,8 +58,8 @@
       register: result
       failed_when: result.rc != 0
       loop:
-        - /boot
-        - /tmp
+        - /sys
+        - /proc
       when: "'Search' in group_names"
 
     - name: Check Mount crawler
@@ -68,7 +68,7 @@
       register: result
       failed_when: result.rc != 0
       loop:
-        - /boot
+        - /sys
       when: "'crawler' in group_names"
 
     - name: Check Mount 3DComment
@@ -77,8 +77,8 @@
       register: result
       failed_when: result.rc != 0
       loop:
-        - /boot
-        - /tmp
+        - /sys
+        - /proc
       when: "'3DComment' in group_names"
 
     - name: Check Mount 3DNotification
@@ -87,7 +87,7 @@
       register: result
       failed_when: result.rc != 0
       loop:
-        - /boot
+        - /sys
       when: "'3DNotification' in group_names"
 
     - name: Check Mount 3DSwym
@@ -96,8 +96,8 @@
       register: result
       failed_when: result.rc != 0
       loop:
-        - /boot
-        - /tmp
+        - /sys
+        - /proc
       when: "'3DSwym' in group_names"
 
     - name: Check Mount 3DIndex
@@ -106,7 +106,7 @@
       register: result
       failed_when: result.rc != 0
       loop:
-        - /boot
+        - /sys
       when: "'3DIndex' in group_names"
 
     - name: Check Mount 3DSwymIndex
@@ -115,8 +115,8 @@
       register: result
       failed_when: result.rc != 0
       loop:
-        - /boot
-        - /tmp
+        - /sys
+        - /proc
       when: "'3DSwymIndex' in group_names"
 
     - name: Check Mount FCS
@@ -125,6 +125,6 @@
       register: result
       failed_when: result.rc != 0
       loop:
-        - /boot
-        - /tmp
+        - /sys
+        - /proc
       when: "'FCS' in group_names"
