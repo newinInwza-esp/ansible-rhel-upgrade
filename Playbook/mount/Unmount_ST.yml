@@ -116,19 +116,3 @@
         - /3dex_data
       when: "'FCS' in group_names"
 
-    - name: Unmount Front_End
-      ansible.builtin.mount:
-        path: "{{ item }}"
-        state: unmounted
-      loop:
-        - /usr1/NAS
-        - /3dex_data
-      when: "'Front_End' in group_names"
-
-    - name: Unmount Back_End
-      ansible.builtin.mount:
-        path: "{{ item }}"
-        state: unmounted
-      loop:
-        - /usr1/NAS
-      when: "'Back_End' in group_names"
